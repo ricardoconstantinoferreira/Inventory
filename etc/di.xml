@@ -5,6 +5,12 @@
     <preference for="RCFerreira\InventoryPrice\Api\Data\InventoryPriceInterface"
                 type="RCFerreira\InventoryPrice\Model\InventoryPrice" />
 
+    <preference for="RCFerreira\InventoryPrice\Api\InventoryPriceRepositoryInterface"
+                type="RCFerreira\InventoryPrice\Model\InventoryPriceRepository" />
+
+    <preference for="RCFerreira\InventoryPrice\Api\Data\InventoryPriceSearchResultsInterface"
+                type="RCFerreira\InventoryPrice\Model\InventoryPriceSearchResults" />
+
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">

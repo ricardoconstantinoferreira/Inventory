@@ -74,6 +74,7 @@
     </listingToolbar>
 
     <columns name="spinner_columns">
+
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -151,5 +152,11 @@
                 </item>
             </argument>
         </column>
+
+        <actionsColumn name="actions" class="RCFerreira\InventoryPrice\Ui\Component\Listing\Column\BlockActions">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>

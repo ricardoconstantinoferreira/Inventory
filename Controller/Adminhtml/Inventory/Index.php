@@ -10,6 +10,8 @@ use Magento\Backend\App\Action\Context;
 class Index extends \Magento\Backend\App\Action
 {
 
+    public const ADMIN_RESOURCE = 'RCFerreira_InventoryPrice::index';
+
     public function __construct(
         private PageFactory $resultPageFactory,
         Context $context

@@ -15,6 +15,8 @@ use RCFerreira\InventoryPrice\Api\InventoryPriceRepositoryInterface;
 class MassDelete extends Action implements HttpPostActionInterface
 {
 
+    public const ADMIN_RESOURCE = 'RCFerreira_InventoryPrice::delete';
+
     /**
      * @param Context $context
      * @param Filter $filter

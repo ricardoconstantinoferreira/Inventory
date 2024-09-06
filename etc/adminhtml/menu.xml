@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="RCFerreira_InventoryPrice::menu" title="RC Ferreira" module="RCFerreira_InventoryPrice" resource="RCFerreira_InventoryPrice::menu" sortOrder="10"/>
+        <add id="RCFerreira_InventoryPrice::inventory" title="Inventory" module="RCFerreira_InventoryPrice"
+             resource="RCFerreira_InventoryPrice::inventory"
+             parent="RCFerreira_InventoryPrice::menu"
+             action="rcferreira_inventoryprice/inventory/index"/>
+    </menu>
+</config>

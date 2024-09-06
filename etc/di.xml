@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="RCFerreira\InventoryPrice\Api\Data\InventoryPriceInterface"
+                type="RCFerreira\InventoryPrice\Model\InventoryPrice" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="rcferreira_inventoryprice_inventory_listing_data_source" xsi:type="string">
+                    RCFerreira\InventoryPrice\Model\ResourceModel\InventoryPrice\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="RCFerreira\InventoryPrice\Model\ResourceModel\InventoryPrice\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">rcferreira_inventory_price</argument>
+            <argument name="resourceModel" xsi:type="string">RCFerreira\InventoryPrice\Model\ResourceModel\InventoryPrice</argument>
+        </arguments>
+    </virtualType>
+
+</config>

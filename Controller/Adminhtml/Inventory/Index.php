@@ -12,6 +12,10 @@ class Index extends \Magento\Backend\App\Action
 
     public const ADMIN_RESOURCE = 'RCFerreira_InventoryPrice::index';
 
+    /**
+     * @param PageFactory $resultPageFactory
+     * @param Context $context
+     */
     public function __construct(
         private PageFactory $resultPageFactory,
         Context $context
@@ -19,6 +23,9 @@ class Index extends \Magento\Backend\App\Action
         parent::__construct($context);
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
+     */
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();

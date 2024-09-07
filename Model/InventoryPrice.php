@@ -94,4 +94,21 @@ class InventoryPrice extends AbstractModel implements InventoryPriceInterface
     {
         return $this->getData(self::POSTCODE);
     }
+
+    /**
+     * @param int $percentage
+     * @return InventoryPriceInterface
+     */
+    public function setPercentage(int $percentage): InventoryPriceInterface
+    {
+        return $this->setData(self::PERCENTAGE, $percentage);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPercentage(): int
+    {
+        return $this->getData(self::PERCENTAGE);
+    }
 }

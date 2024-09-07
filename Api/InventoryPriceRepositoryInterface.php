@@ -38,5 +38,4 @@ interface InventoryPriceRepositoryInterface
      * @return bool
      */
     public function delete(InventoryPriceInterface $inventoryPrice): bool;
-
 }

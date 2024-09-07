@@ -6,6 +6,7 @@
         <column name="address" nullable="false" xsi:type="varchar" comment="address" length="255"/>
         <column name="sku" nullable="false" xsi:type="varchar" comment="sku" length="255"/>
         <column name="postcode" nullable="false" xsi:type="varchar" comment="postcode" length="255"/>
+        <column name="percentage" nullable="false" xsi:type="int" comment="percentage" />
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>

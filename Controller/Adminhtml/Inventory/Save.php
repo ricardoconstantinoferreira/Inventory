@@ -10,6 +10,7 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
 use RCFerreira\InventoryPrice\Api\InventoryPriceRepositoryInterface;
+use RCFerreira\InventoryPrice\Api\Data\InventoryPriceInterface;
 
 class Save extends Action implements HttpPostActionInterface
 {
@@ -23,7 +24,8 @@ class Save extends Action implements HttpPostActionInterface
     public function __construct(
         Context $context,
         private DataPersistorInterface $dataPersistor,
-        private InventoryPriceRepositoryInterface $inventoryPriceRepository
+        private InventoryPriceRepositoryInterface $inventoryPriceRepository,
+        private InventoryPriceInterface $inventoryPrice
     ) {
         parent::__construct($context);
     }
@@ -35,8 +37,8 @@ class Save extends Action implements HttpPostActionInterface
     {
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
-        if ($data) {
 
+        if ($data) {
             if (empty($data['entity_id'])) {
                 $data['entity_id_id'] = null;
             }
@@ -45,18 +47,27 @@ class Save extends Action implements HttpPostActionInterface
             if ($id) {
                 try {
                     $model = $this->inventoryPriceRepository->getById($id);
+
+                    if (!empty($model->getId())) {
+                        $this->inventoryPrice->setId($model->getId());
+                    }
+
                 } catch (LocalizedException $e) {
                     $this->messageManager->addErrorMessage(__('This inventory no longer exists.'));
                     return $resultRedirect->setPath('*/*/');
                 }
             }
 
-            $model->setData($data);
+            $this->inventoryPrice->setName($data['name']);
+            $this->inventoryPrice->setAddress($data['address']);
+            $this->inventoryPrice->setSku($data['sku']);
+            $this->inventoryPrice->setPostcode($data['postcode']);
+            $this->inventoryPrice->setPercentage((int) $data['percentage']);
 
             try {
-                $this->inventoryPriceRepository->save($model);
+                $data['entity_id'] = $this->inventoryPriceRepository->save($this->inventoryPrice);
                 $this->messageManager->addSuccessMessage(__('You saved the inventory.'));
-                return $this->processBlockReturn($model, $data, $resultRedirect);
+                return $this->processBlockReturn($data, $resultRedirect);
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
@@ -74,19 +85,23 @@ class Save extends Action implements HttpPostActionInterface
      * @param $resultRedirect
      * @return mixed
      */
-    private function processBlockReturn($model, $data, $resultRedirect)
+    private function processBlockReturn($data, $resultRedirect)
     {
         $redirect = $data['back'] ?? 'close';
 
         if ($redirect ==='continue') {
-            $resultRedirect->setPath('*/*/edit', ['entity_id' => $model->getId()]);
+            $resultRedirect->setPath('*/*/edit', ['entity_id' => $data['entity_id']]);
         } elseif ($redirect === 'close') {
             $resultRedirect->setPath('*/*/');
         } elseif ($redirect === 'duplicate') {
-            $model->setData($data);
-            $model->setId(null);
-            $this->inventoryPriceRepository->save($model);
-            $id = $model->getId();
+            $this->inventoryPrice->setName($data['name']);
+            $this->inventoryPrice->setAddress($data['address']);
+            $this->inventoryPrice->setSku($data['sku']);
+            $this->inventoryPrice->setPostcode($data['postcode']);
+            $this->inventoryPrice->setPercentage((int) $data['percentage']);
+            $this->inventoryPrice->setId(null);
+            $id = $this->inventoryPriceRepository->save($this->inventoryPrice);
+
             $this->messageManager->addSuccessMessage(__('You duplicated the inventory.'));
 
             $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);

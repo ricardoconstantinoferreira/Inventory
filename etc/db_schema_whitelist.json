@@ -1,0 +1,15 @@
+{
+    "rcferreira_inventory_price": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "address": true,
+            "sku": true,
+            "postcode": true,
+            "percentage": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

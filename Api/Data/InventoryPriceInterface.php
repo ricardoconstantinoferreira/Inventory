@@ -19,6 +19,8 @@ interface InventoryPriceInterface
 
     public const POSTCODE = "postcode";
 
+    public const PERCENTAGE = "percentage";
+
     /**
      * @param $entity_id
      * @return mixed
@@ -73,4 +75,15 @@ interface InventoryPriceInterface
      * @return string
      */
     public function getPostcode(): string;
+
+    /**
+     * @param int $percentage
+     * @return InventoryPriceInterface
+     */
+    public function setPercentage(int $percentage): InventoryPriceInterface;
+
+    /**
+     * @return int
+     */
+    public function getPercentage(): int;
 }

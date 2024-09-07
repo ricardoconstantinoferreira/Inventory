@@ -11,6 +11,7 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
 use RCFerreira\InventoryPrice\Api\InventoryPriceRepositoryInterface;
 use RCFerreira\InventoryPrice\Api\Data\InventoryPriceInterface;
+use RCFerreira\InventoryPrice\Model\Validate\ProductValidation;
 
 class Save extends Action implements HttpPostActionInterface
 {
@@ -25,7 +26,8 @@ class Save extends Action implements HttpPostActionInterface
         Context $context,
         private DataPersistorInterface $dataPersistor,
         private InventoryPriceRepositoryInterface $inventoryPriceRepository,
-        private InventoryPriceInterface $inventoryPrice
+        private InventoryPriceInterface $inventoryPrice,
+        private ProductValidation $productValidation
     ) {
         parent::__construct($context);
     }
@@ -37,6 +39,11 @@ class Save extends Action implements HttpPostActionInterface
     {
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
+
+        if ($this->productValidation->hasProduct($data['sku']) > 0) {
+            $this->messageManager->addErrorMessage(__('Some sku doesnt exists.'));
+            return $resultRedirect->setPath('*/*/');
+        }
 
         if ($data) {
             if (empty($data['entity_id'])) {

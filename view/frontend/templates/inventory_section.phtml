@@ -1,0 +1,23 @@
+<div class="inventory-price-section" data-bind="scope: 'section'">
+<!--    <p data-bind="text: inventory_section().inventory_price_section"></p>-->
+
+    <select id="inventoryPriceOption" name="inventoryPriceOption"
+            data-bind="foreach: inventory_section().options,
+                                event: {change: submitOption }">
+        <option data-bind="value: key, text: value"></option>
+    </select>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "section": {
+                        "component": "RCFerreira_InventoryPrice/js/inventory"
+                    }
+                }
+            }
+        }
+    }
+</script>

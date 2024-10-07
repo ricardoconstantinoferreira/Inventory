@@ -12,6 +12,13 @@
                    name="inventory_section"
                    after="-"
                    template="RCFerreira_InventoryPrice::inventory_section.phtml">
+
+                <arguments>
+                    <argument name="view_inventory_price" xsi:type="object">
+                        RCFerreira\InventoryPrice\ViewModel\InventorySection
+                    </argument>
+                </arguments>
+
             </block>
         </referenceContainer>
     </body>

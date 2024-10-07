@@ -1,23 +1,16 @@
-<div class="inventory-price-section" data-bind="scope: 'section'">
-<!--    <p data-bind="text: inventory_section().inventory_price_section"></p>-->
+<?php
 
-    <select id="inventoryPriceOption" name="inventoryPriceOption"
-            data-bind="foreach: inventory_section().options,
-                                event: {change: submitOption }">
-        <option data-bind="value: key, text: value"></option>
+/** $viewModel \RCFerreira\InventoryPrice\ViewModel\InventorySection */
+
+$viewModel = $block->getViewInventoryPrice();
+$results = $viewModel->getSectionData();
+
+?>
+<div class="inventory-price-section">
+    <select id="inventoryPriceOption" name="inventoryPriceOption">
+        <option value=""></option>
+        <?php foreach ($results as $value): ?>
+        <option value="<?= $value['key'] ?>" data-percentage="<?= $value['percentage'] ?>" ><?= $value['value'] ?></option>
+        <?php endforeach; ?>
     </select>
 </div>
-
-<script type="text/x-magento-init">
-    {
-        "*": {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "section": {
-                        "component": "RCFerreira_InventoryPrice/js/inventory"
-                    }
-                }
-            }
-        }
-    }
-</script>

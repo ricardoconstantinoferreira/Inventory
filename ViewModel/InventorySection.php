@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RCFerreira\InventoryPrice\CustomerData;
+namespace RCFerreira\InventoryPrice\ViewModel;
 
-use Magento\Customer\CustomerData\SectionSourceInterface;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use RCFerreira\InventoryPrice\Model\Data\InventoryData;
 
-class InventorySection implements SectionSourceInterface
+class InventorySection implements ArgumentInterface
 {
     /**
      * @param InventoryData $inventoryData
@@ -28,13 +28,12 @@ class InventorySection implements SectionSourceInterface
             foreach ($values as $value) {
                 $availableOptions[] = [
                     'key' => $value['entity_id'],
-                    'value' => $value['name']
+                    'value' => $value['name'],
+                    'percentage' => $value['percentage']
                 ];
             }
         }
 
-        return [
-            'options' => $availableOptions
-        ];
+        return $availableOptions;
     }
 }
